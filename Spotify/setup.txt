@@ -1,0 +1,6 @@
+client_id=49354f6bb56b4bbab765bab5bfe99d6a
+client_secret=abe86ff2f8e64c4aa3aaff3e8a381749
+device_name=DESKTOP-HL76JE4
+redirect_uri=http://localhost:8888/callback
+username=11121126373
+scope=user-read-private user-read-playback-state user-modify-playback-state

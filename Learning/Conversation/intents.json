@@ -1,0 +1,55 @@
+{
+    "intents":
+        [
+            {
+                "tag": "greetings",
+                "patterns": ["hey", "hello", "hi", "greetings", "what's up?", "sup", "yo", "hiya"],
+                "responses": ["Hello Sir! Hope you're having a great day!", "What's up", "How can I help?"]
+            },
+            {
+                "tag": "exit",
+                "patterns": ["Bye", "Goodbye", "see ya"],
+                "responses": ["Have a great day!"]
+            },
+            {
+                "tag": "gratitude",
+                "patterns": ["Thanks", "Thank you", "Well done", "Good Job"],
+                "responses": ["My pleasure", "No Worries", "Thank you", "Here to help!"]
+            },
+            {
+                "tag": "mean",
+                "patterns": ["Fuck you", "Piss off", "Shut up"],
+                "responses": ["That wasn't very nice"]
+            },
+            {
+                "tag": "name",
+                "patterns": ["What's your name", "What are you called", "Who are you", "Introduce yourself"],
+                "responses": ["My name is Astrid, I am an AI coded by Tephrite"]
+            },
+            {
+                "tag": "feeling",
+                "patterns": ["How are you", "how are you feeling", "how you doing", "how're you doing"],
+                "responses": ["Pretty Glonky"]
+            },
+            {
+                "tag": "spotify",
+                "patterns": ["Play song by artist", "Play"],
+                "responses": ["func:play_song"]
+            },
+            {
+                "tag": "weather",
+                "patterns": ["What is the temperature","how cold is it", "how hot is it"],
+                "responses": ["func:get_temp"]
+            },
+            {
+                "tag": "weather",
+                "patterns": ["What is the weather","what's it looking like", "what is it outside"],
+                "responses": ["Sorry this is currently in development"]
+            },
+            {
+                "tag": "time",
+                "patterns": ["What is the time", "What's the time", "What time is it"],
+                "responses": ["func:get_time"]
+            }
+        ]
+}
