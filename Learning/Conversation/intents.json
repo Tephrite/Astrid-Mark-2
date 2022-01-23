@@ -57,6 +57,11 @@
                 "responses": ["func:get_coldest_temp"]
             },
             {
+                "tag": "weather5",
+                "patterns": ["Change to celcius", "Change to farenheit", "use celcius", "use farenheit"],
+                "responses": ["func:change_unit"]
+            },
+            {
                 "tag": "time",
                 "patterns": ["What is the time", "What's the time", "What time is it"],
                 "responses": ["func:get_time"]
