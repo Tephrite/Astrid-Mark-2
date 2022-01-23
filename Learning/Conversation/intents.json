@@ -42,9 +42,19 @@
                 "responses": ["func:get_temp"]
             },
             {
-                "tag": "weather",
+                "tag": "weather2",
                 "patterns": ["What is the weather","what's it looking like", "what is it outside"],
-                "responses": ["Sorry this is currently in development"]
+                "responses": ["func:get_weather"]
+            },
+            {
+                "tag": "weather3",
+                "patterns": ["What is the hottest it'll be today","how hot will it be today", "will it be very hot today"],
+                "responses": ["func:get_hottest_temp"]
+            },
+            {
+                "tag": "weather4",
+                "patterns": ["What is the coldest it'll be today","how cold will it be today", "will it be very cold today"],
+                "responses": ["func:get_coldest_temp"]
             },
             {
                 "tag": "time",
