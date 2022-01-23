@@ -7,7 +7,6 @@ text = "What time is it in Paris"
 local = "Brighton"
 
 def get_time(sentence):
-    print(sentence)
     
     location = get_location(sentence)
     

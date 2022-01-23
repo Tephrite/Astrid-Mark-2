@@ -17,7 +17,6 @@ def get_api(location):
         return api_data
     
 def get_temp(sentence):
-    print(sentence)
     location = get_location(sentence)
     api_data = get_api(location)
     temp = ((api_data['main']['temp']) - 273.15)

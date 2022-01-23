@@ -33,7 +33,7 @@
             },
             {
                 "tag": "spotify",
-                "patterns": ["Play song by artist", "Play"],
+                "patterns": ["Play"],
                 "responses": ["func:play_song"]
             },
             {
