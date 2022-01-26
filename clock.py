@@ -31,4 +31,16 @@ def get_timezone(country):
             return(tz)
 
 def get_time_difference(sentence):
-    print("THIS IS TIME DIFFERENCE")    
+    print("THIS IS TIME DIFFERENCE")  
+    
+def set_alarm(sentence):
+    print("NEW ALARM")
+    
+def stop_alarm(sentence):
+    print("STOP ALARM")
+    
+def set_timer(sentence):
+    print("SET TIMER")
+    
+def stop_timer(sentence):
+    print("STOP TIMER")
