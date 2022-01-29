@@ -81,7 +81,7 @@ def speakText(text):
 ### Main Loop   
 speakText("Astrid Initialized")    
 while True:
-    
+    check_timers()
     try:
         with speech_recognition.Microphone() as mic:
             recognizer.adjust_for_ambient_noise(mic, duration=0.2)
@@ -92,8 +92,7 @@ while True:
             message_l = message.lower()
         
         ints = predict_class(message_l)
-        
-        if float(ints[0]['probability']) > 0.9999:
+        if float(ints[0]['probability']) > 0.999:
             # Use Intent Classification
             result = get_response(message, ints)
         else:

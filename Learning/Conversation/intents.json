@@ -65,6 +65,11 @@
                 "tag": "time",
                 "patterns": ["What is the time", "What's the time", "What time is it"],
                 "responses": ["func:get_time"]
+            },
+            {
+                "tag": "time2",
+                "patterns": ["Set an alarm for"],
+                "responses": ["func:set_alarm"]
             }
         ]
 }
