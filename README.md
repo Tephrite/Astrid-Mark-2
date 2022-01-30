@@ -9,8 +9,10 @@ Currently Astrid's capabilities are
 - Tell the time
 - Play music through Spotify
 - Basic intent NLP
-- Basic Entitiy recognition for geo tags
+- Basic Entity recognition for geo tags with NLTK
+- Basic Entity recognition for time with Spacy
 - Action recognition (eg waving)
 - Object detection
 
 Models use both Tensorflow and PyTorch in order to develop and train the neural networks
+
