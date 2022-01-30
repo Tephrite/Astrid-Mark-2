@@ -68,8 +68,28 @@
             },
             {
                 "tag": "time2",
-                "patterns": ["Set an alarm for"],
+                "patterns": ["Set an alarm for", "Set alarm"],
                 "responses": ["func:set_alarm"]
+            },
+            {
+                "tag": "time3",
+                "patterns": ["Stop the alarm", "Turn off alarm"],
+                "responses": ["func:stop_alarm"]
+            },
+            {
+                "tag": "time4",
+                "patterns": ["Snooze alarm", "Snooze", "Snooze the alarm"],
+                "responses": ["func:snooze_alarm"]
+            },
+            {
+                "tag": "time5",
+                "patterns": ["Set a timer for ", "Set timer"],
+                "responses": ["func:set_timer"]
+            },
+            {
+                "tag": "time6",
+                "patterns": ["Stop timer", "Turn off timer"],
+                "responses": ["func:stop_timer"]
             }
         ]
 }
