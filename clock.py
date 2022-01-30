@@ -38,7 +38,7 @@ def get_time_difference(sentence):
     print("THIS IS TIME DIFFERENCE")  
     
 
-#Makes a check to see if a timer has been set for the current time
+#Makes a check to see if an alarm has been set for the current time
 def check_alarms():
     current_hour = int(datetime.now().strftime("%I"))
     current_min = int(datetime.now().strftime("%M"))
