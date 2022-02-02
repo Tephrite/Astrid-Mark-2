@@ -13,6 +13,7 @@ Currently Astrid's capabilities are
 - Basic Entity recognition for time with Spacy
 - Action recognition (eg waving)
 - Object detection
+- Google Calendar API
 
 Models use both Tensorflow and PyTorch in order to develop and train the neural networks
 

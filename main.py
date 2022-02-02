@@ -17,6 +17,7 @@ import torch
 from weather import *
 from clock import *
 from music import *
+from Calendar.quickstart import *
 
 recognizer = speech_recognition.Recognizer()
 

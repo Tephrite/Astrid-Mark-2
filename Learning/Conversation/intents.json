@@ -90,6 +90,28 @@
                 "tag": "time6",
                 "patterns": ["Stop timer", "Turn off timer"],
                 "responses": ["func:stop_timer"]
+            },
+            {
+                "tag": "calendar",
+                "patterns": [
+                    "Get today's events", 
+                    "What's going on today", 
+                    "What do I have today", 
+                    "What do I have on today", 
+                    "Whats my day looking like", 
+                    "What are we doing today"
+                ],
+                "responses": ["func:get_todays_events"]
+            },
+            {
+                "tag": "calendar1",
+                "patterns": [
+                    "What do I have on the",
+                    "Whats going on on the",
+                    "Am I free on the",
+                    "Am I busy on the"
+                ],
+                "responses": ["func:get_day_events"]
             }
         ]
 }
