@@ -55,7 +55,6 @@ def get_date(sentence):
     today = datetime.now()
     result = ""
     
-    print("Sentence:", sentence)
     if doc.ents:
         for ent in doc.ents:
             print(ent, ent.label_)
@@ -90,23 +89,74 @@ def get_date(sentence):
                                                             result = [datetime.strptime(str(ent), fmt).day, today.month, today.year]
                                                     except ValueError:
                                                         pass
-    else:       
-        #Handle exceptions
-        emp_lis = ""
-        for z in sentence:
-            if z.isdigit():
-                emp_lis += z
-        
-        print(emp_lis)       
-        for fmt in ('%dst', '%dnd', '%drd', '%dth', '%d'):
-            try:
-                #Check if day has already past
-                if today.day > datetime.strptime(emp_lis, fmt).day:
-                    result = [datetime.strptime(emp_lis, fmt).day, today.month+1, today.year]
-                else:
-                    result = [datetime.strptime(emp_lis, fmt).day, today.month, today.year]
-            except ValueError:
-                pass
-    
-    #print(result)
+    else:
+        #Handle english phrasing
+        if "after tomorrow" in sentence:
+            result = [today.day+2, today.month, today.year]
+        elif "tomorrow" in sentence:
+            result = [today.day+1, today.month, today.year]
+        elif "before yesterday" in sentence:
+            result = [today.day-2, today.month, today.year]  
+        elif "yesterday" in sentence:
+            result = [today.day-1, today.month, today.year]
+        else:               
+            #Handle exceptions
+            emp_lis = ""
+            for z in sentence:
+                if z.isdigit():
+                    emp_lis += z
+                
+            for fmt in ('%dst', '%dnd', '%drd', '%dth', '%d'):
+                try:
+                    #Check if day has already past
+                    if today.day > datetime.strptime(emp_lis, fmt).day:
+                        result = [datetime.strptime(emp_lis, fmt).day, today.month+1, today.year]
+                    else:
+                        result = [datetime.strptime(emp_lis, fmt).day, today.month, today.year]
+                except ValueError:
+                    pass
+    result = date_fix(result)
     return result
+
+#Checks that date exists and if not, reformats (eg. 33rd of the 13th month changes to, 2nd of the 1st month next year)
+def date_fix(date):
+    is_leapyear = date[2] % 4 == 0 and (date[2] % 100 != 0 or date[2] % 400 == 0)
+    thirty_one = [1, 3, 5, 7, 8, 10] #all months with 31 except december
+    thirty = [4, 6, 9, 11] #remaining months except february
+    
+    #Handle months with 31
+    for month in thirty_one:
+        if date[1] == month:
+            if date[0] > 31:
+                date[1] += 1
+                date[0] -= 31
+    
+    #Handle months with 30
+    for month in thirty:
+        if date[1] == month:
+            if date[0] > 30:
+                date[1] += 1
+                date[0] -= 30
+                
+    #Handle February
+    if is_leapyear:
+        if date[1] == 2:
+            if date[0] > 29:
+                date[1] += 1
+                date[0] -= 29
+    else:
+        if date[1] == 2:
+            if date[0] > 28:
+                date[1] += 1
+                date[0] -= 28
+                
+    #Handle December
+    if date[1] == 12:
+        if date[0] > 31:
+            date[1] -= 11
+            date[0] -= 31
+            date[2] += 1
+
+    return(date)
+
+print(date_fix([36, 12, 2024]))
