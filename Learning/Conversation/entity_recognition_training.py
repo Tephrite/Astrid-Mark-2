@@ -158,5 +158,3 @@ def date_fix(date):
             date[2] += 1
 
     return(date)
-
-print(date_fix([36, 12, 2024]))
