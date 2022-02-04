@@ -1,5 +1,4 @@
 import speech_recognition
-import pyttsx3 as tts
 import sys
 import random
 import pickle
@@ -13,6 +12,7 @@ from tensorflow.keras.models import load_model
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
+from tts import *
 
 from weather import *
 from clock import *
@@ -72,12 +72,6 @@ def get_response(message, intents_list):
         result = eval(result + "(message)")
               
     return result
-
-def speakText(text):
-    
-    engine = tts.init()
-    engine.say(text)
-    engine.runAndWait()
 
 ### Main Loop   
 speakText("Astrid Initialized")    
