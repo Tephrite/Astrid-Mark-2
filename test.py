@@ -21,9 +21,11 @@ def get_day_events_tests():
     cal.get_day_events("what do I have tomorrow")
 
 def add_event_tests():
-    #cal.add_event("Add gym for the 21st at 1:20pm") 
-    cal.add_event("Add Amy's Birthday on the 21st at 1 a.m. and finishes at 4:15 p.m.") 
-    #cal.add_event("Add gym at 6pm on the 21st to the calendar") 
+    cal.add_event("Add an event for the 21st at 1:20pm") 
+    
+    cal.add_event("Add an event on the 21st at 1 a.m. and finishes at 4:15 p.m.") 
+    
+    cal.add_event("Add gym at 6 p.m on the 21st to the calendar") 
     
     
 ### Entity Recognition Tests
@@ -63,4 +65,4 @@ def get_date_tests():
     print(ent.get_date("1st April"))
     
     print(ent.get_date("do I have anything on the 12th"))
-        
+    
