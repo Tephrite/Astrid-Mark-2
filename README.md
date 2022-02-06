@@ -9,8 +9,8 @@ Currently Astrid's capabilities are
 - Tell the time
 - Play music through Spotify
 - Basic intent NLP
-- Basic Entity recognition for geo tags with NLTK
-- Basic Entity recognition for time with Spacy
+- Basic Entity recognition for geo tags and time with NLTK
+- Basic Entity recognition for date with Spacy
 - Action recognition (eg waving)
 - Object detection
 - Google Calendar API
