@@ -2,6 +2,7 @@ import nltk
 import spacy
 from datetime import datetime
 
+#TODO: Merge entity recognitions to output a json like formatted const that gives all the necessary info
 def get_location(sentence):
     words = nltk.word_tokenize(sentence)
     pos_tags = nltk.pos_tag(words)
@@ -79,7 +80,9 @@ def extract_time(sentence):
             
             except:
                 pass      
-                
+
+#Gets time from sentence in format [[hour, minute]]
+#If multiple times given then it'll be [[hour, minute], [hour, minute]]                
 def get_time(sentence):
     words = nltk.word_tokenize(sentence)
     pos_tags = nltk.pos_tag(words)
@@ -122,6 +125,7 @@ def get_time(sentence):
                     pass      
     return result            
 
+#TODO: Change to NLTK instead of Spacy
 #Returns date in the format [day, month, year]
 def get_date(sentence):
     nlp = spacy.load("en_core_web_sm")
@@ -130,6 +134,7 @@ def get_date(sentence):
     result = ""
     
     if doc.ents:
+        print(doc.ents)
         for ent in doc.ents:
             if ent.label_ == "DATE" or ent.label_ == "ORDINAL":
                 if ":" not in str(ent):
