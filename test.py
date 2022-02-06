@@ -7,7 +7,7 @@ def get_day_events_tests():
     cal.get_day_events("21st February")
 
     cal.get_day_events("January 23rd")
-
+    
     cal.get_day_events("4th")
 
     cal.get_day_events("January 23rd 2024")

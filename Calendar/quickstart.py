@@ -196,7 +196,6 @@ def add_event(sentence):
             #Convert to usable format
             start_dateTime = datetime.datetime(date[2], date[1], date[0], time[0][0], time[0][1]).isoformat() + 'Z'
             end_dateTime = datetime.datetime(date[2], date[1], date[0], time[1][0], time[1][1]).isoformat() + 'Z'
-            timezone = datetime.datetime.now(datetime.timezone(datetime.timedelta(0))).astimezone().tzinfo
             
             #Create event
             event = {

@@ -126,6 +126,28 @@
                     "Am I busy"
                 ],
                 "responses": ["func:get_day_events"]
+            },
+            {
+                "tag": "calendar2",
+                "patterns": [
+                    "Add an event to my calendar",
+                    "Add to my calendar",
+                    "Add an event on the at a.m. and finishes at p.m.",
+                    "Add an event on the at p.m. and finishes at a.m.",
+                    "Add an event at and finishes at",
+                    "Add an event for and finishes at",
+                    "Add an event at",
+                    "Add an event for",
+                    "Create an event to my calendar",
+                    "Create to my calendar",
+                    "Create an event on the at a.m. and finishes at p.m.",
+                    "Create an event on the at p.m. and finishes at a.m.",
+                    "Create an event at and finishes at",
+                    "Create an event for and finishes at",
+                    "Create an event at",
+                    "Create an event for"
+                ],
+                "responses": ["func:add_event"]
             }
         ]
 }
