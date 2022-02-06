@@ -125,62 +125,62 @@ def get_time(sentence):
                     pass      
     return result            
 
-#TODO: Change to NLTK instead of Spacy
 #Returns date in the format [day, month, year]
 def get_date(sentence):
-    nlp = spacy.load("en_core_web_sm")
-    doc = nlp(sentence)
+    words = nltk.word_tokenize(sentence)
+    pos_tags = nltk.pos_tag(words)
+    chunkGram = r""" 
+        Chunk:
+            {<NN.?>*<CD><NN.?>*<CD>*} 
+        """
+    chunkParser = nltk.RegexpParser(chunkGram)
+    chunks = chunkParser.parse(pos_tags)
     today = datetime.now()
-    result = ""
+    result = []
     
-    if doc.ents:
-        print(doc.ents)
-        for ent in doc.ents:
-            if ent.label_ == "DATE" or ent.label_ == "ORDINAL":
-                if ":" not in str(ent):
-                    #Handle format 21st February 2020
-                    for fmt in ('%dst %B %Y', '%dnd %B %Y', '%drd %B %Y', '%dth %B %Y', 'the %dst of %B %Y', 'the %dnd of %B %Y', 'the %drd of %B %Y', 'the %dth of %B %Y'):
-                        try:
-                            result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, datetime.strptime(str(ent), fmt).year]
-                        except ValueError:
-                            #Handle format February 21st 2020
-                            for fmt in ('%B %dst %Y', '%B %dnd %Y', '%B %drd %Y', '%B %dth %Y'):
-                                try:
-                                    result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, datetime.strptime(str(ent), fmt).year]
-                                except ValueError:
-                                    #Handle format 21st February
-                                    for fmt in ('%dst %B', '%dnd %B', '%drd %B', '%dth %B', 'the %dst of %B', 'the %dnd of %B', 'the %drd of %B', 'the %dth of %B'):
-                                        try:
-                                            result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, today.year]
-                                        except ValueError:
-                                            #Handle format February 23rd
-                                            for fmt in ('%B %dst', '%B %dnd', '%B %drd', '%B %dth'):
-                                                try:
-                                                    result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, today.year]
-                                                except ValueError:
-                                                    #Handle format 21nd 
-                                                    for fmt in ('%dst', '%dnd', '%drd', '%dth', 'the %dst', 'the %dnd', 'the %drd', 'the %dth', 'the %dst at', 'the %dnd at', 'the %drd at', 'the %dth at'):
-                                                        try:
-                                                            #Check if day has already past
-                                                            if today.day > datetime.strptime(str(ent), fmt).day:
-                                                                result = [datetime.strptime(str(ent), fmt).day, today.month+1, today.year]
-                                                            else:
-                                                                result = [datetime.strptime(str(ent), fmt).day, today.month, today.year]
-                                                        except ValueError:
-                                                            #Handle english phrasing
-                                                            for fmt in ('%d'):
-                                                                try:
-                                                                    if "after tomorrow" in sentence:
-                                                                        result = [today.day+2, today.month, today.year]
-                                                                    elif "tomorrow" in sentence:
-                                                                        result = [today.day+1, today.month, today.year]
-                                                                    elif "before yesterday" in sentence:
-                                                                        result = [today.day-2, today.month, today.year]  
-                                                                    elif "yesterday" in sentence:
-                                                                        result = [today.day-1, today.month, today.year]
-                                                                except ValueError:
-                                                                    pass
-    else:           
+    if "CD" in str(chunks):
+        for ent in chunks:
+            if "Chunk" in str(ent):
+                ent = str(ent)
+                date = (ent[ent.find("(Chunk ")+7:ent.find(")")].replace("/CD","")).replace("/NNP","")
+                if "NN" in date:
+                    date = date.replace("/NN","")               
+                if " ./" in date:
+                    date = date.replace(" ./", "")
+                if "/CC" in date:
+                    date = date.replace("/CC", "")
+                ent = date
+                #Handle format 21st February 2020
+                for fmt in ('%dst %B %Y', '%dnd %B %Y', '%drd %B %Y', '%dth %B %Y', 'the %dst of %B %Y', 'the %dnd of %B %Y', 'the %drd of %B %Y', 'the %dth of %B %Y'):
+                    try:
+                        result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, datetime.strptime(str(ent), fmt).year]
+                    except ValueError:
+                        #Handle format February 21st 2020
+                        for fmt in ('%B %dst %Y', '%B %dnd %Y', '%B %drd %Y', '%B %dth %Y'):
+                            try:
+                                result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, datetime.strptime(str(ent), fmt).year]
+                            except ValueError:
+                                #Handle format 21st February
+                                for fmt in ('%dst %B', '%dnd %B', '%drd %B', '%dth %B', 'the %dst of %B', 'the %dnd of %B', 'the %drd of %B', 'the %dth of %B'):
+                                    try:
+                                        result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, today.year]
+                                    except ValueError:
+                                        #Handle format February 23rd
+                                        for fmt in ('%B %dst', '%B %dnd', '%B %drd', '%B %dth'):
+                                            try:
+                                                result = [datetime.strptime(str(ent), fmt).day, datetime.strptime(str(ent), fmt).month, today.year]
+                                            except ValueError:
+                                                #Handle format 21nd 
+                                                for fmt in ('%dst', '%dnd', '%drd', '%dth', 'the %dst', 'the %dnd', 'the %drd', 'the %dth', 'the %dst at', 'the %dnd at', 'the %drd at', 'the %dth at'):
+                                                    try:
+                                                        #Check if day has already past
+                                                        if today.day > datetime.strptime(str(ent), fmt).day:
+                                                            result = [datetime.strptime(str(ent), fmt).day, today.month+1, today.year]
+                                                        else:
+                                                            result = [datetime.strptime(str(ent), fmt).day, today.month, today.year]
+                                                    except ValueError:
+                                                        pass
+    else:         
         #Handle exceptions
         emp_lis = ""
         for z in sentence:
@@ -195,7 +195,20 @@ def get_date(sentence):
                 else:
                     result = [datetime.strptime(emp_lis, fmt).day, today.month, today.year]
             except ValueError:
-                pass
+                #Handle english phrasing
+                for fmt in ('%d'):
+                    try:
+                        if "after tomorrow" in sentence:
+                            result = [today.day+2, today.month, today.year]
+                        elif "tomorrow" in sentence:
+                            result = [today.day+1, today.month, today.year]
+                        elif "before yesterday" in sentence:
+                            result = [today.day-2, today.month, today.year]  
+                        elif "yesterday" in sentence:
+                            result = [today.day-1, today.month, today.year]
+                    except ValueError:
+                        pass
+        
     if result:            
         result = date_fix(result)
     return result
