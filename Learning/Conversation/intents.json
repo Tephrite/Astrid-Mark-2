@@ -97,9 +97,12 @@
                     "Get today's events", 
                     "What's going on today", 
                     "What do I have today", 
-                    "What do I have on today", 
+                    "What do I have on today",
+                    "What have I got today", 
                     "Whats my day looking like", 
-                    "What are we doing today"
+                    "What are we doing today",
+                    "How busy am I today",
+                    "How free am I today"
                 ],
                 "responses": ["func:get_todays_events"]
             },
@@ -107,9 +110,20 @@
                 "tag": "calendar1",
                 "patterns": [
                     "What do I have on the",
+                    "What have I got on the",
                     "Whats going on on the",
                     "Am I free on the",
-                    "Am I busy on the"
+                    "Am I busy on the",
+                    "What do I have on",
+                    "What have I got on",
+                    "Whats going on on",
+                    "Am I free on",
+                    "Am I busy on",
+                    "What do I have",
+                    "What have I got",
+                    "Whats going on",
+                    "Am I free",
+                    "Am I busy"
                 ],
                 "responses": ["func:get_day_events"]
             }
