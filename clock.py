@@ -4,6 +4,7 @@ import dateutil.parser
 
 from Learning.Conversation.entity_recognition_training import get_location, extract_time
 
+#TODO: User swap to get_time instead of extract_time
 text = "set a timer for 1 minute"
 local = "Brighton"
 
