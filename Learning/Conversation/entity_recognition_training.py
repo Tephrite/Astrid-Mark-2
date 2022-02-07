@@ -126,6 +126,7 @@ def get_time(sentence):
     return result            
 
 #Returns date in the format [day, month, year]
+#TODO: Handle format "next Tuesday"
 def get_date(sentence):
     words = nltk.word_tokenize(sentence)
     pos_tags = nltk.pos_tag(words)

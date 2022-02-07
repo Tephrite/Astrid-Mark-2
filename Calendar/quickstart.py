@@ -58,7 +58,7 @@ def stringify_event(events):
                 start[0] = str(int(start[0]) - 12)
             return_string += " at "+start[0]+":"+start[1] +"\n"
         else: 
-            start = "all day"
+            start = " all day"
             return_string += start +"\n"
             
         
@@ -66,7 +66,32 @@ def stringify_event(events):
     print(return_string)
     return return_string
     
+#TODO: Handle formats
+# - Retrieve events by time
+def get_event(sentence):
+    creds = get_credentials()
     
+    try:
+        service = build('calendar', 'v3', credentials=creds)
+
+        # Call the Calendar API
+        now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+        print('Getting the upcoming events')
+        events_result = service.events().list(calendarId='primary', singleEvents=True,
+                                              timeMin=now, orderBy='startTime').execute()
+        events = events_result.get('items', [])
+        
+        for event in events:
+            #If name of event is given
+            summary_l = str(event.get("summary")).lower()
+            if sentence in summary_l:
+                return event
+            else:
+                return "Event not found"
+
+    except HttpError as error:
+        print('An error occurred: %s' % error)
+         
 def get_events(event_count=10):
     creds = get_credentials()
     
@@ -218,9 +243,33 @@ def add_event(sentence):
             
     except speech_recognition.UnknownValueError:
         print("I didn't understand, please try again")
-    
-def delete_event():
+
+
+def delete_event(sentence):
     print("DELETE EVENT")
+    creds = get_credentials()
+    #TODO: Change to NER for event name
+    name = sentence
+    event = get_event(name)
+    
+    try:    
+        
+        with speech_recognition.Microphone() as mic:
+            speakText("Are you sure you want to delete "+name)
+            recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+            audio = recognizer.listen(mic)
+            confirmation = recognizer.recognize_google(audio)
+            
+            if "y" in str(confirmation).lower():
+                try:
+                    service = build('calendar', 'v3', credentials=creds)
+                    service.events().delete(calendarId='primary', eventId=event.get("id")).execute()
+                    speakText(event.get("summary") + "has been deleted")
+                except HttpError as error:
+                    print('An error occurred: %s' % error)
+            
+    except speech_recognition.UnknownValueError:
+        print("I didn't understand, please try again")
     
 def move_event():
     print("MOVE EVENT")
