@@ -68,7 +68,7 @@ def stringify_event(events):
     
 #TODO: Handle formats
 # - Retrieve events by time
-def get_event(sentence):
+def get_event(name):
     creds = get_credentials()
     
     try:
@@ -84,10 +84,11 @@ def get_event(sentence):
         for event in events:
             #If name of event is given
             summary_l = str(event.get("summary")).lower()
-            if sentence in summary_l:
+            if name in summary_l:
                 return event
-            else:
-                return "Event not found"
+        print("Event not found")
+        return "Event not found"
+                
 
     except HttpError as error:
         print('An error occurred: %s' % error)
@@ -199,7 +200,7 @@ def add_event(sentence):
                 speakText("What day is "+ activity)
                 audio = recognizer.listen(mic)
                 date = recognizer.recognize_google(audio)
-                date = get_date(time)
+                date = get_date(date)
                 print("Date:", date)
             
             #If time wasn't found
@@ -249,7 +250,7 @@ def delete_event(sentence):
     print("DELETE EVENT")
     creds = get_credentials()
     #TODO: Change to NER for event name
-    name = sentence
+    name = get_activity(sentence)
     event = get_event(name)
     
     try:    
@@ -260,6 +261,7 @@ def delete_event(sentence):
             audio = recognizer.listen(mic)
             confirmation = recognizer.recognize_google(audio)
             
+            #TODO: Add lemmatizer
             if "y" in str(confirmation).lower():
                 try:
                     service = build('calendar', 'v3', credentials=creds)

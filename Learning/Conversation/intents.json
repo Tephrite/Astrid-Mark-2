@@ -148,6 +148,20 @@
                     "Create an event for"
                 ],
                 "responses": ["func:add_event"]
+            },
+            {
+                "tag": "calendar3",
+                "patterns": [
+                    "Remove an event from my calendar",
+                    "Remove from my calendar",
+                    "Remove ",
+                    "Delete an event from my calendar",
+                    "Delete ",
+                    "Delete from my calendar",
+                    "Cancel from my calendar",
+                    "Cancel "
+                ],
+                "responses": ["func:delete_event"]
             }
         ]
 }
