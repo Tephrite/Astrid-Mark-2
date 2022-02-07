@@ -3,6 +3,7 @@ import spacy
 from datetime import datetime
 
 #TODO: Merge entity recognitions to output a json like formatted const that gives all the necessary info
+#TODO: Clean up remove tags
 def get_location(sentence):
     words = nltk.word_tokenize(sentence)
     pos_tags = nltk.pos_tag(words)
@@ -20,30 +21,35 @@ def get_location(sentence):
 def get_activity(sentence):
     words = nltk.word_tokenize(sentence)
     pos_tags = nltk.pos_tag(words)
-    chunks = nltk.ne_chunk(pos_tags, binary=False)
-    result = []
+    chunkGram = r""" 
+        Chunk:
+            {<.*>+}
+            }<VB|JJ>{
+            }<IN><DT><CD>{
+            }<IN><CD>{
+            }<TO|IN><PRP.><NN>{
+        """
+    chunkParser = nltk.RegexpParser(chunkGram)
+    chunks = chunkParser.parse(pos_tags)
+    english_phrasing =["the day", "after tomorrow", "before yesterday", "tomorrow", "yesterday"]
     
+    result = ""
     for chunk in chunks:
-        if "CD" in chunk:
-            chunk = str(chunk)
-            time = chunk[chunk.find("('")+2:chunk.find("',")]
-            #Handle all time formats
-            # for fmt in ('%I:%M%p','0%I:%M%p',
-            #             '%I a.m.',
-            #             '%I p.m.',
-            #             '%I',
-            #             '%I hour and %M minute', '%I hours and %M minute', '%I hour and %M minutes', '%I hours and %M minutes', 
-            #             '%I hour %M minute', '%I hours %M minute', '%I hour %M minutes', '%I hours %M minutes',
-            #             '%I hour', '%I hours',
-            #             '%M minute', '%M minutes'):
-            #     try:
-            #         if fmt == '%I p.m.':
-            #             result.append([int(datetime.strptime(str(time), fmt).hour)+12, datetime.strptime(str(time), fmt).minute])
-            #         else:
-            #             result.append([datetime.strptime(str(time), fmt).hour, datetime.strptime(str(time), fmt).minute])
-                        
-            #     except ValueError:
-            #         pass            
+        if "Chunk" in str(chunk):
+            terms=[]
+            if isinstance(chunk, tuple):
+                terms += [ chunk[0] ]
+            else:
+                terms+=[w for w, t in chunk]
+
+            for word in terms:
+                if "'" in word or word == terms[0]:
+                    result += str(word)
+                else:
+                    result += " "+ str(word)
+            
+            for phrase in english_phrasing:
+                result = result.replace(phrase, "")         
     return result   
           
 def extract_time(sentence):
