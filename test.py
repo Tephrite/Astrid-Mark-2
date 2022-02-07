@@ -21,13 +21,19 @@ def get_day_events_tests():
     cal.get_day_events("what do I have tomorrow")
 
 def add_event_tests():
-    cal.add_event("Add an event for the 21st at 1:20pm") 
+    cal.add_event("add test to my calendar") 
     
-    cal.add_event("Add an event on the 21st at 1 a.m. and finishes at 4:15 p.m.") 
+    cal.add_event("add an event for the 21st at 1:20pm") 
     
-    cal.add_event("Add gym at 6 p.m on the 21st to the calendar") 
+    cal.add_event("add an event on the 21st at 1 a.m. and finishes at 4:15 p.m.") 
+    
+    cal.add_event("add gym at 6 p.m on the 21st to the calendar") 
+    
+def delete_event_tests():
+    cal.delete_event("delete test from my calendar") 
     
     
+
 ### Entity Recognition Tests
    
 def get_time_tests():
@@ -65,4 +71,19 @@ def get_date_tests():
     print(ent.get_date("1st April"))
     
     print(ent.get_date("do I have anything on the 12th"))
+
+def get_activity_tests():
+    print(ent.get_activity("add boxing to my calendar"))
+    
+    print(ent.get_activity("add amy's birthday for the 21st at 1:20pm to my calendar"))
+    
+    print(ent.get_activity("add movies with the boys"))
+    
+    print(ent.get_activity("add play date tomorrow at 8:15"))
+    
+    print(ent.get_activity("add find frankie the day after tomorrow at 8:15"))
+    
+    print(ent.get_activity("delete xray"))
+    
+    print(ent.get_activity("remove movies"))
     
